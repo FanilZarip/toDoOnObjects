@@ -22,18 +22,29 @@
 // Создайте список дел, добавьте в него пару задач, поменяйте их статусы несколько раз и выведете результат в консоль
 
 const list = {};
-const todo = 'Todo';
-const inProgress = 'In Progress';
-const done = 'Done';
+const statusList = {
+    todo:'Todo',
+    inProgress:'In Progress',
+    done:'Done',
+};
 
 function addTask(task) {
-    list[task] = todo;
+    list[task] = statusList.todo;
+
 }
 
 function changeStatus(task, newStatus) {
-    if (task in list) {
-        list[task] = newStatus;
+
+    const isCorrectData = (task in list);
+
+    if (isCorrectData) {
+        for (const status in statusList) {
+            if (newStatus === statusList[status]) {
+                list[task] = newStatus;
+            }
+        }
     }
+
     return;
 }
 
@@ -42,9 +53,9 @@ function deleteTask(task) {
 }
 
 function showList() {
-    sortByTaskStatus(todo);
-    sortByTaskStatus(inProgress);
-    sortByTaskStatus(done);
+    sortByTaskStatus(statusList.todo);
+    sortByTaskStatus(statusList.inProgress);
+    sortByTaskStatus(statusList.done);
 }
 
 function sortByTaskStatus(taskStatus) {
@@ -76,10 +87,10 @@ addTask('Learn Objects');
 addTask('Go to Bed');
 addTask('Close NoteBook');
 
-changeStatus("task", inProgress);
-changeStatus("Make Todo", inProgress);
-changeStatus("Learn Objects", inProgress);
-// changeStatus("Done work day", 'Done');
+changeStatus("task", statusList.inProgress);
+changeStatus("Make Todo", statusList.done);
+changeStatus("Learn Objects", statusList.inProgress);
+changeStatus("Done work day", '23Done');
 
 deleteTask('Close NoteBook');
 // deleteTask('CloseNoteBook');
